@@ -1,0 +1,5 @@
+FROM ballerina/ballerina:2201.8.2
+WORKDIR /Client
+COPY . .
+EXPOSE 9090
+CMD ballerina run

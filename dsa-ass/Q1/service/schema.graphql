@@ -1,0 +1,115 @@
+type User {
+    _id: ID!
+    username: String!
+    password: String!
+    role: String!
+    department: String!
+    position: String!
+    email: String!
+    assignedSupervisor: ID
+    assignedHoD: ID
+    assignedEmployees: [ID]
+    objectives: [ID]
+    grades: [Grade]
+    KPIs: [ID]
+}
+
+type Grade {
+    employeeId: ID!
+    grade: Int!
+}
+
+type KPI {
+    _id: ID!
+    name: String!
+    objective: String!
+    unit: String!
+    weightage: Float!
+    createdBy: ID!
+    createdAt: String!
+}
+
+type EmployeeKPI {
+    employeeId: ID!
+    kpiId: ID!
+    value: Int!
+    gradedBy: ID!
+    grade: Int!
+    evalDate: String!
+}
+
+type DepartmentObjective {
+    employeeId: ID!
+    kpiId: ID!
+    value: Int!
+    gradedBy: ID!
+    grade: Int!
+    evalDate: String!
+}
+
+type Query {
+    getUserById(id: ID!): User
+    getUsersByRole(role: String!): [User]
+    getKPIById(id: ID!): KPI
+    getEmployeeKPIs(employeeId: ID!): [EmployeeKPI]
+    getDepartmentObjectives(employeeId: ID!): [DepartmentObjective]
+}
+
+type Mutation {
+    createUser(user: UserInput!): User
+    updateUser(id: ID!, user: UserInput!): User
+    deleteUser(id: ID!): User
+    createKPI(kpi: KPIInput!): KPI
+    updateKPI(id: ID!, kpi: KPIInput!): KPI
+    deleteKPI(id: ID!): KPI
+    createEmployeeKPI(employeeKPI: EmployeeKPIInput!): EmployeeKPI
+    createDepartmentObjective(departmentObjective: DepartmentObjectiveInput!): DepartmentObjective
+}
+
+input UserInput {
+    username: String!
+    password: String!
+    role: String!
+    department: String!
+    position: String!
+    email: String!
+    assignedSupervisor: ID
+    assignedHoD: ID
+    assignedEmployees: [ID]
+    objectives: [ID]
+    grades: [GradeInput]
+    KPIs: [ID]
+}
+
+input GradeInput {
+    employeeId: ID!
+    grade: Int!
+}
+
+input KPIInput {
+    name: String!
+    objective: String!
+    unit: String!
+    weightage: Float!
+    createdBy: ID!
+    createdAt: String!
+}
+
+input EmployeeKPIInput {
+    employeeId: ID!
+    kpiId: ID!
+    value: Int!
+    gradedBy: ID!
+    grade: Int!
+    evalDate: String!
+}
+
+input DepartmentObjectiveInput {
+    employeeId: ID!
+    kpiId: ID!
+    value: Int!
+    gradedBy: ID!
+    grade: Int!
+    evalDate: String!
+}
+
